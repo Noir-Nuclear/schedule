@@ -25,7 +25,7 @@ public class MainController {
 
     @GetMapping
     List<Group> schedule() {
-        return groupService.findFiveFirstGroups();
+        return groupService.findPartOfGroups(1);
     }
 
     @GetMapping("/search")

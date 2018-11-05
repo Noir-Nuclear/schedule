@@ -15,8 +15,10 @@ public class GroupServiceImpl implements GroupService {
         this.groupRepo = groupRepo;
     }
 
-    public List<Group> findFiveFirstGroups() {
+    public List<Group> findPartOfGroups(int i) {
         List<Group> groups = groupRepo.findAll();
-        return groups.subList(0, groups.size() <= 5 ? groups.size() : 5);
+        int pagination = 10;
+        return groups.subList((i - 1) * pagination, groups.size() <= pagination * i ? groups.size() - 1 : pagination * i);
     }
+
 }
