@@ -15,12 +15,16 @@ public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
+    private String miniImagePath;
+
+    private String imagePath;
 
 }

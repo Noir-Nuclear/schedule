@@ -1,4 +1,13 @@
 package istu.pm.schedule.impls;
 
-public class LessonDataServiceImpl {
+import istu.pm.schedule.entities.LessonData;
+import istu.pm.schedule.services.LessonDataService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class LessonDataServiceImpl implements LessonDataService {
+    @Override
+    public LessonData create() {
+        return null;
+    }
 }

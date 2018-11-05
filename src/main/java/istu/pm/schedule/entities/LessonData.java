@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class LessonData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     private Timestamp dateBegin;
 

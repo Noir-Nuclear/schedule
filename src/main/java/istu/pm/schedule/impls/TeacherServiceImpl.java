@@ -1,4 +1,8 @@
 package istu.pm.schedule.impls;
 
-public class TeacherServiceImpl {
+import istu.pm.schedule.services.TeacherService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TeacherServiceImpl implements TeacherService {
 }
