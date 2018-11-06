@@ -17,7 +17,7 @@ public class LessonDataServiceImpl implements LessonDataService {
     }
 
     public List<LessonData> getLessonsByGroupId(Integer groupId) {
-        lessonDataRepo.getAllByGroup(groupId);
+        return lessonDataRepo.getAllByGroup(groupId);
     }
 
     public LessonData create(LessonData lessonData) {
