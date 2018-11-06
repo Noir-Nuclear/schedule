@@ -16,8 +16,8 @@ public class LessonDataServiceImpl implements LessonDataService {
         this.lessonDataRepo = lessonDataRepo;
     }
 
-    @Override
-    public List<LessonData> getLessonsByGroupId(String groupId) {
+    public List<LessonData> getLessonsByGroupId(Integer groupId) {
+        lessonDataRepo.getAllByGroup(groupId);
     }
 
     public LessonData create(LessonData lessonData) {
