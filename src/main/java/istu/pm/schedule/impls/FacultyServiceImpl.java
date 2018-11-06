@@ -6,7 +6,6 @@ import istu.pm.schedule.services.FacultyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +30,9 @@ public class FacultyServiceImpl implements FacultyService {
         facultyRepo.delete(deletedFaculty);
     }
 
-    public List<String> getFacultyIdsByName(String name) {
+    public List<Integer> getFacultyIdsByName(String name) {
         return facultyRepo.getAllByNameContaining(name).stream().
-                map(faculty -> faculty.getId().toString()).
+                map(faculty -> faculty.getId()).
                 collect(Collectors.toList());
     }
 

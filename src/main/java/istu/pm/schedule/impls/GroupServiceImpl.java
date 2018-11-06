@@ -16,7 +16,7 @@ public class GroupServiceImpl implements GroupService {
         this.groupRepo = groupRepo;
     }
 
-    public List<Group> getGroups(String groupName, List<String> facultyIds, int pageIndex) {
+    public List<Group> getGroups(String groupName, List<Integer> facultyIds, int pageIndex) {
         List<Group> groups;
         if (groupName == null) {
             groups = groupRepo.findAll();

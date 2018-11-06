@@ -6,12 +6,18 @@ import istu.pm.schedule.services.LessonDataService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LessonDataServiceImpl implements LessonDataService {
     private final LessonDataRepo lessonDataRepo;
 
     public LessonDataServiceImpl(LessonDataRepo lessonDataRepo) {
         this.lessonDataRepo = lessonDataRepo;
+    }
+
+    @Override
+    public List<LessonData> getLessonsByGroupId(String groupId) {
     }
 
     public LessonData create(LessonData lessonData) {

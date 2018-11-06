@@ -9,6 +9,6 @@ public interface FacultyService {
     Faculty create(Faculty newFaculty);
     Faculty edit(Faculty changedFaculty, Faculty newFaculty);
     void delete(Faculty deletedFaculty);
-    List<String> getFacultyIdsByName(String name);
+    List<Integer> getFacultyIdsByName(String name);
 
 }
