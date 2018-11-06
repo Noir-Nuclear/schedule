@@ -9,4 +9,5 @@ import java.util.List;
 import static org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.*;
 
 public interface GroupRepo extends JpaRepository<Group, Integer> {
+    List<Group> getAllByNameContaining(String name);
 }
