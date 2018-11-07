@@ -7,6 +7,6 @@ public interface TeacherService {
     Teacher create(Teacher teacher);
     Teacher edit(Teacher changedTeacher, Teacher newTeacher);
     void delete(Teacher teacher);
-
+    Integer getTeacherIdByName(String name);
 
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TeacherRepo extends JpaRepository<Teacher, Integer> {
     List<Teacher> getAllByName(String name);
+    Teacher getByNameContaining(String name);
 }

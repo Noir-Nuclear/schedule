@@ -26,4 +26,8 @@ public class TeacherServiceImpl implements TeacherService {
     public void delete(Teacher teacher) {
         teacherRepo.delete(teacher);
     }
+
+    public Integer getTeacherIdByName(String name) {
+        return teacherRepo.getByNameContaining(name).getId();
+    }
 }

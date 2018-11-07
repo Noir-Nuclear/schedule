@@ -6,6 +6,7 @@ import istu.pm.schedule.services.GroupService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +34,11 @@ public class GroupServiceImpl implements GroupService {
                         groups.size() - 1 :
                         pagination * pageIndex
         );
+    }
+
+    @Override
+    public List<Group> getGroupsByIds(Set groupIds) {
+        return groupRepo.getAllByIdIn(groupIds);
     }
 
 }
