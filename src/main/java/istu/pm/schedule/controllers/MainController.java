@@ -2,6 +2,7 @@ package istu.pm.schedule.controllers;
 
 import istu.pm.schedule.entities.Group;
 import istu.pm.schedule.entities.LessonData;
+import istu.pm.schedule.entities.Teacher;
 import istu.pm.schedule.services.FacultyService;
 import istu.pm.schedule.services.GroupService;
 import istu.pm.schedule.services.LessonDataService;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("schedule")
@@ -27,22 +27,20 @@ public class MainController {
         this.teacherService = teacherService;
     }
 
-    @GetMapping("/search?group={searchedGroup}&pagination={pagination}")
+    @GetMapping({"/search?group={searchedGroup}&pagination={pagination}", "./admin/search?group={searchedGroup}&pagination={pagination}"})
     List<Group> findGroupsByName(@PathVariable String searchedGroup, @PathVariable Integer pagination) {
         List<String> groupAttributes = Arrays.asList(searchedGroup.split(","));
-        groupAttributes.forEach(groupAttribute -> {
-            groupAttribute.replaceAll("\\s", "");
-        });
+        groupAttributes.forEach(groupAttribute -> groupAttribute.replaceAll("\\s", ""));
         List<Integer> facultyIds = null;
         if (groupAttributes.size() > 1) {
             facultyIds = facultyService.getFacultyIdsByName(groupAttributes.get(0));
         }
-        return groupService.getGroups(groupAttributes.get(groupAttributes.size() - 1), facultyIds, pagination);
+        return groupService.getGroupsByTeacherId(groupAttributes.get(groupAttributes.size() - 1), facultyIds, pagination);
     }
 
     @GetMapping
     List<Group> schedule() {
-        return groupService.getGroups(null, null, 1);
+        return groupService.getGroupsByTeacherId(null, null, 1);
     }
 
     @GetMapping("/group?id={id}")
@@ -50,11 +48,15 @@ public class MainController {
         return lessonDataService.getLessonsByGroupId(id);
     }
 
-
     @GetMapping("/teacher/search?name={teacherName}")
-    List<Group> findGroupsByTeacher(@PathVariable String teacherName) {
-        Integer teacherId = teacherService.getTeacherIdByName(teacherName);
-        Set groupIds = lessonDataService.getGroupIdsByTeacherId(teacherId);
-        return groupService.getGroupsByIds(groupIds);
+    List<Teacher> findTeacherByName(@PathVariable String teacherName) {
+        return teacherService.getTeachersByNameContaining(teacherName);
     }
+
+    @GetMapping("/teacher/groups?id={teacherId}")
+    List<Group> getGroupsByTeacherId(@PathVariable Integer teacherId, @PathVariable Integer pagination) {
+        return groupService.getGroupsByTeacherId(teacherId, pagination);
+    }
+
+
 }

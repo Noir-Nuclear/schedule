@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TeacherRepo extends JpaRepository<Teacher, Integer> {
-    List<Teacher> getAllByName(String name);
-    Teacher getByNameContaining(String name);
+    List<Teacher> getByNameContaining(String name);
 }

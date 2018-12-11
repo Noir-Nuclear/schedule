@@ -6,6 +6,11 @@ import istu.pm.schedule.services.TeacherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
+import static org.springframework.data.util.Pair.toMap;
+
 @Service
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepo teacherRepo;
@@ -27,7 +32,8 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepo.delete(teacher);
     }
 
-    public Integer getTeacherIdByName(String name) {
-        return teacherRepo.getByNameContaining(name).getId();
+    @Override
+    public List<Teacher> getTeachersByNameContaining(String name) {
+        return teacherRepo.getByNameContaining(name);
     }
 }
