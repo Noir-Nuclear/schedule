@@ -9,6 +9,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,32 @@ public class GroupServiceImpl implements GroupService {
     public GroupServiceImpl(GroupRepo groupRepo, LessonDataRepo lessonDataRepo) {
         this.groupRepo = groupRepo;
         this.lessonDataRepo = lessonDataRepo;
+    }
+
+    private void deleteImages(Group group) {
+        File bigImage = new File(group.getImagePath());
+        File miniImage = new File(group.getMiniImagePath());
+        bigImage.delete();
+        miniImage.delete();
+    }
+
+    private void saveImages(byte[] bigImageData, byte[] miniImageData, Group group) {
+        String bigImagePath = "/images/big-image-" + group.getId() + ".bin";
+        String miniImagePath = "/images/mini-image-" + group.getId() + ".bin";
+        try {
+            FileOutputStream bigImageStream = new FileOutputStream(bigImagePath, false);
+            FileOutputStream miniImageStream = new FileOutputStream(miniImagePath, false);
+            bigImageStream.write(bigImageData);
+            miniImageStream.write(miniImageData);
+            bigImageStream.flush();
+            bigImageStream.close();
+            miniImageStream.flush();
+            miniImageStream.close();
+            group.setImagePath(bigImagePath);
+            group.setMiniImagePath(miniImagePath);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Group> getGroupsByTeacherId(String groupName, List<Integer> facultyIds, int pageIndex) {
@@ -61,18 +90,22 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group create(Group group) {
+    public Group create(Group group, byte[] bigImageData, byte[] miniImageData) {
+        saveImages(bigImageData, miniImageData, group);
         return groupRepo.save(group);
     }
 
     @Override
-    public Group edit(Group groupDB, Group group) {
+    public Group edit(Group groupDB, Group group, byte[] bigImageData, byte[] miniImageData) {
+        deleteImages(groupDB);
+        saveImages(bigImageData, miniImageData, group);
         BeanUtils.copyProperties(group, groupDB, "id");
         return groupRepo.save(groupDB);
     }
 
     @Override
     public void delete(Group group) {
+        deleteImages(group);
         groupRepo.delete(group);
     }
 

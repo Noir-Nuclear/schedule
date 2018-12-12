@@ -10,9 +10,9 @@ public interface GroupService {
 
     List<Group> getGroupsByTeacherId(Integer teacherId, Integer pageIndex);
 
-    Group create(Group group);
+    Group create(Group group, byte[] bigImageData, byte[] miniImageData);
 
-    Group edit(Group groupDB, Group group);
+    Group edit(Group groupDB, Group group, byte[] bigImageData, byte[] miniImageData);
 
     void delete(Group group);
 }

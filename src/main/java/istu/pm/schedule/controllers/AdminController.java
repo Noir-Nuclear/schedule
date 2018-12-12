@@ -47,14 +47,18 @@ public class AdminController {
     }
 
     @PostMapping("/groups")
-    Group createGroup(@RequestBody Group group) {
-        return groupService.create(group);
+    Group createGroup(@RequestBody Group group,
+                      @RequestBody byte[] bigImageData,
+                      @RequestBody byte[] miniImageData) {
+        return groupService.create(group, bigImageData, miniImageData);
     }
 
     @PutMapping("/groups?id={id}")
     Group updateGroup(@PathVariable("id") Group groupDB,
-                            @RequestBody Group group) {
-        return groupService.edit(groupDB, group);
+                            @RequestBody Group group,
+                      @RequestBody byte[] bigImageData,
+                      @RequestBody byte[] miniImageData) {
+        return groupService.edit(groupDB, group, bigImageData, miniImageData);
     }
 
     @DeleteMapping("/groups?id={id}")
