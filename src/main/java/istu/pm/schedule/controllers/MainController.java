@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("schedule")
@@ -44,8 +45,8 @@ public class MainController {
     }
 
     @GetMapping("/group?id={id}")
-    public List<LessonData> getLessons(@PathVariable Integer id) {
-        return lessonDataService.getLessonsByGroupId(id);
+    public Map getLessons(@PathVariable Integer id) {
+        return groupService.getImages(id);
     }
 
     @GetMapping("/teacher/search?name={teacherName}")

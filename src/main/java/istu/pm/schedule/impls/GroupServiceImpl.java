@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,6 +89,24 @@ public class GroupServiceImpl implements GroupService {
                 groups.size() <= (pageIndex * pageIndex) ?
                         groups.size() - 1 :
                         pageIndex * pageIndex);
+    }
+
+    @Override
+    public Map<String, byte[]> getImages(Integer groupId) {
+        Group group = groupRepo.getOne(groupId);
+        try {
+            FileInputStream bigImageStream = new FileInputStream(group.getImagePath());
+            FileInputStream miniImageStream = new FileInputStream(group.getMiniImagePath());
+            byte[] bigImageData = bigImageStream.readAllBytes();
+            byte[] miniImageData = miniImageStream.readAllBytes();
+            Map<String, byte[]> images = new HashMap<>();
+            images.put("full", bigImageData);
+            images.put("mini", miniImageData);
+            return images;
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
