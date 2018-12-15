@@ -29,4 +29,6 @@ public class LessonData {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    private Boolean isFirstWeekLesson;
+
 }
